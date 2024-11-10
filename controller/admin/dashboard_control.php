@@ -4,7 +4,7 @@ include '../../connection/connection.php';
 $sql1 = "SELECT COUNT(*) as jumlah_guru FROM user WHERE role_id = 2";
 $sql2 = "SELECT COUNT(*) as jumlah_siswa FROM user WHERE role_id = 3";
 $sql3 = "SELECT COUNT(*) as jumlah_kelas FROM kelas";
-$sql4 = "SELECT COUNT(*) as jumlah_mapel FROM kelas";
+$sql4 = "SELECT COUNT(*) as jumlah_mapel FROM mapel";
 
 // eksekusi query
 

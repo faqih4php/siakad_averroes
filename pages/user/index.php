@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+  session_start();
+  
+  include '../../controller/admin/dashboard_control.php'; 
+  ?> 
 
 <head>
   <meta charset="utf-8" />
@@ -25,11 +30,11 @@
 
 <body class="g-sidenav-show  bg-gray-100">
   <!-- sidebar start -->
-   <?php include'../../layout/sidebar.php'; ?>
+   <?php include '../../layout/sidebar.php'; ?>
   <!-- sidebar end -->
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
-    <?php include'../../layout/navbar.php'; ?>
+    <?php include '../../layout/navbar.php'; ?>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
       <!-- <div class="row">

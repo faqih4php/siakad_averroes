@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+  <?php 
+  session_start();
+  
+  include '../../controller/admin/dashboard_control.php'; 
+  ?> 
 
 <head>
   <meta charset="utf-8" />
@@ -10,6 +15,7 @@
     Siakad Averroes
   </title>
   <!--     Fonts and icons     -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800" rel="stylesheet" />
   <!-- Nucleo Icons -->
   <link href="https://demos.creative-tim.com/soft-ui-dashboard/assets/css/nucleo-icons.css" rel="stylesheet" />
@@ -26,6 +32,7 @@
 <body class="g-sidenav-show  bg-gray-100">
   <!-- sidebar start -->
    <?php include'../../layout/sidebar.php'; ?>
+   
   <!-- sidebar end -->
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- Navbar -->
@@ -232,14 +239,18 @@
                 <span class="mask bg-primary opacity-10 border-radius-lg"></span>
                 <div class="card-body p-3 position-relative">
                   <div class="row">
+                    <?php 
+                    include '../../controller/admin/dashboard_control.php';
+                    
+                    ?>
                     <div class="col-8 text-start">
                       <div class="icon icon-shape bg-white shadow text-center border-radius-2xl">
                         <i class="ni ni-circle-08 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
                       </div>
                       <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                        1600
+                        <?= $data_guru['jumlah_guru'] ?>
                       </h5>
-                      <span class="text-white text-sm">Users Active</span>
+                      <span class="text-white text-sm">Guru</span>
                     </div>
                     <div class="col-4">
                       <div class="dropdown text-end mb-6">
@@ -268,9 +279,9 @@
                         <i class="ni ni-active-40 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
                       </div>
                       <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                        357
+                        <?= $data_siswa['jumlah_siswa'] ?>
                       </h5>
-                      <span class="text-white text-sm">Click Events</span>
+                      <span class="text-white text-sm">Murid</span>
                     </div>
                     <div class="col-4">
                       <div class="dropstart text-end mb-6">
@@ -301,9 +312,9 @@
                         <i class="ni ni-cart text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
                       </div>
                       <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                        2300
+                        <?= $data_kelas['jumlah_kelas'] ?>
                       </h5>
-                      <span class="text-white text-sm">Purchases</span>
+                      <span class="text-white text-sm">Kelas</span>
                     </div>
                     <div class="col-4">
                       <div class="dropdown text-end mb-6">
@@ -332,9 +343,9 @@
                         <i class="ni ni-like-2 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
                       </div>
                       <h5 class="text-white font-weight-bolder mb-0 mt-3">
-                        940
+                        <?= $data_mapel['jumlah_mapel'] ?>
                       </h5>
-                      <span class="text-white text-sm">Likes</span>
+                      <span class="text-white text-sm">Mapel</span>
                     </div>
                     <div class="col-4">
                       <div class="dropstart text-end mb-6">

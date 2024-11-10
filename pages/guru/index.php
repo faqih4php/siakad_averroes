@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+  session_start();
+  
+  include '../../controller/admin/dashboard_control.php'; 
+  ?> 
 
 <head>
   <meta charset="utf-8" />
