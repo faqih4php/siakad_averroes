@@ -33,7 +33,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="../admin/user.php">
+          <a class="nav-link  " href="../admin/user/index.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <i class="fa-solid fa-user" style="color: #000000;"></i>
             </div>
