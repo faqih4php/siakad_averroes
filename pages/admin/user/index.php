@@ -12,7 +12,13 @@
   <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Datatables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
+  <!-- Datatables -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
   <!-- CSS Files -->
+  <link rel="stylesheet" href="//cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css">
   <link id="pagestyle" href="../../../assets/css/soft-ui-dashboard.css" rel="stylesheet" />
   <link
     rel="stylesheet"
@@ -34,11 +40,40 @@
             <div class="card-header d-flex justify-content-between align-items-center pb-0">
               <h6>Daftar User</h6>
               <!-- Add button -->
-              <a href="../../../controller/admin/user_controller.php?action=add" class="btn bg-gradient-success mt-2"><i class="fas fa-plus"></i> Tambah User</a>
+              <a href="../../../controller/admin/user_controller.php?action=add" class="btn bg-gradient-success mt-2" data-bs-toggle = "modal" data-bs-target = "#addUser"><i class="fas fa-plus"></i> Tambah User</a>
             </div>
+            <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 'success'): ?>
+              <!-- show sweet alert success -->
+              <!-- Show SweetAlert success -->
+              <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                  Swal.fire({
+                    title: 'Berhasil!',
+                    text: '<?= $_SESSION['msg'] ?>',
+                    icon: 'success',
+                    confirmButtonText: 'OKE'
+                  });
+                });
+              </script>
+            <?php
+            elseif (isset($_SESSION['status']) && $_SESSION['status'] == 'error'): ?>
+              <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                  Swal.fire({
+                    title: 'Gagal!',
+                    text: '<?= $_SESSION['msg'] ?>',
+                    icon: 'error',
+                    confirmButtonText: 'OKE'
+                  });
+                });
+              </script>
+            <?php
+            endif;
+            unset($_SESSION['message']);
+            ?>
             <div class="card-body px-0 pt-0 pb-2">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
+              <div class="table-responsive p-0 m-4">
+                <table class="table align-items-center mb-0" id="tabelUser">
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
@@ -69,10 +104,10 @@
                           <span class="badge badge-sm bg-gradient-primary"><?= $row['role'] ?></span>
                         </td>
                         <td class="align-middle text-center">
-                          <a href="../../../controller/admin/user_controller.php?id=<?= $row['id'] ?>?action=edit" class="text-secondary font-weight-bold text-xs">
+                          <a href="" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#editUser"  data-id="<?= $row['id'] ?>" data-nama="<?= $row['nama_user'] ?>" data-username="<?= $row['username'] ?>" data-role="<?= $row['role'] ?>">
                             <i class="fas fa-edit"></i>
                           </a>
-                          <a href="../../../controller/admin/user_controller.php?id=<?= $row['id'] ?>?action=delete" class="text-secondary font-weight-bold text-xs">
+                          <a href="../../../controller/admin/user_control.php?id=<?= $row['id'] ?>&action=delete" class="text-secondary font-weight-bold text-xs" onclick="confirmDelete(event, <?= $row['id'] ?>)">
                             <i class="fas fa-trash"></i>
                           </a>
                         </td>
@@ -101,15 +136,69 @@
       </div>
   </main>
   <?php include '../../../layout/sidebar_conf.php' ?>
+  <?php include './add.php'; ?>
+  <?php include './edit.php'; ?>
+  <!-- Sweet alert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    let table = new DataTable('#tabelUser');
+  </script>
   <!--   Core JS Files   -->
   <script src="../../../assets/js/core/popper.min.js"></script>
   <script src="../../../assets/js/core/bootstrap.min.js"></script>
   <script src="../../../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../../../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../../../assets/js/plugins/chartjs.min.js"></script>
+  <script src="../../../assets/js/soft-ui-dashboard.min.js"></script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../../../assets/js/soft-ui-dashboard.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script>
+        const modalEdit = document.getElementById('editUser'); 
+        modalEdit.addEventListener('show.bs.modal', () => {
+          const button = event.relatedTarget;
+          const id = button.getAttribute('data-id');
+          const nama = button.getAttribute('data-nama');
+          const username = button.getAttribute('data-username');
+          const role = button.getAttribute('data-role');
+          modalEdit.querySelector('#id').value = id;
+          modalEdit.querySelector('#nama').value = nama;
+          modalEdit.querySelector('#username').value = username;
+          
+          if (role == 'Admin') {
+            modalEdit.querySelector('#role').value = 1;
+          } else if (role == 'Guru') {
+            modalEdit.querySelector('#role').value = 2;
+          } else {
+            modalEdit.querySelector('#role').value = 3;
+          }
+        });
+        
+        function confirmDelete(event, id) {
+            event.preventDefault(); // Prevent the default action of the <a> tag
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                    setTimeout(() => {
+                        window.location.href = '../../../controller/admin/user_control.php?id=' + id + '&action=delete';
+                    }, 2000); 
+                }
+            });
+        }
+    </script>
 </body>
 </html>
