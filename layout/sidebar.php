@@ -16,7 +16,7 @@
         
         if($_SESSION['role'] == 1){?>
         <li class="nav-item">
-          <a class="nav-link <?= $page == 'index' ? 'active' : ''?>" href="../admin/index.php">
+          <a class="nav-link <?= $page == 'index' ? 'active' : ''?>" href="<?php echo '/akad_averroes/pages/admin/index.php'; ?>">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fa fa-home <?= $page == 'index' ? 'text-white' : 'text-dark'?>"></i>
             </div>
@@ -27,7 +27,7 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">User pages</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?= $page == 'user' ? 'active' : ''?>" href="../admin/user/index.php">
+          <a class="nav-link <?= $page == 'user' ? 'active' : ''?>" href="<?php echo '/akad_averroes/pages/admin/user/user.php'; ?>">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fa fa-user <?= $page == 'user' ? 'text-white' : 'text-dark'?>"></i>
             </div>
@@ -38,9 +38,9 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Kelas Pages</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link <?php $page == 'kelas' ? 'active' : ''?> " href="../admin/kelas/index.php">
+          <a class="nav-link <?= $page == 'kelas' ? 'active' : ''?> " href="<?php echo '/akad_averroes/pages/admin/kelas/kelas.php'; ?>">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="fa fa-chalkboard-teacher text-dark"></i>
+              <i class="fa fa-chalkboard-teacher <?= $page == 'kelas' ? 'text-white' : 'text-dark'?>"></i>
             </div>
             <span class="nav-link-text ms-1">Kelas</span>
           </a>

@@ -40,7 +40,7 @@
             <div class="card-header d-flex justify-content-between align-items-center pb-0">
               <h6>Daftar User</h6>
               <!-- Add button -->
-              <a href="../../../controller/admin/user_controller.php?action=add" class="btn bg-gradient-success mt-2" data-bs-toggle = "modal" data-bs-target = "#addUser"><i class="fas fa-plus"></i> Tambah User</a>
+              <a href="../../../controller/admin/user_control.php?action=add" class="btn bg-gradient-success mt-2" data-bs-toggle = "modal" data-bs-target = "#addUser"><i class="fas fa-plus"></i> Tambah User</a>
             </div>
             <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 'success'): ?>
               <!-- show sweet alert success -->
@@ -69,7 +69,7 @@
               </script>
             <?php
             endif;
-            unset($_SESSION['message']);
+            unset($_SESSION['msg']);
             ?>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0 m-4">

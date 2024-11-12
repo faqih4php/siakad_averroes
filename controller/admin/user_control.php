@@ -17,7 +17,7 @@
         $role = $_POST['role'];
         $sql = "UPDATE user SET nama = '$nama', username = '$username', password = '$password', role_id = $role WHERE id = $id";
         
-        if($conn->query($sql) === TRUE){
+        if($conn->query($sql) == TRUE){
             $_SESSION['status'] = "success";
             $_SESSION['msg'] = "Data Berhasil Diubah";
             echo "<script>location.href = '../../pages/admin/user/user.php';</script>";
