@@ -8,5 +8,5 @@ session_unset();
 // Destroy the session
 session_destroy();
 
-header("Location: ../../pages/auth/signin.php");
+header('Location:../../pages/auth/sign_in.php');
 ?>

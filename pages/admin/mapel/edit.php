@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="editkelas" tabindex="-1" aria-labelledby="editkelas" aria-hidden="true">
+<div class="modal fade" id="editmapel" tabindex="-1" aria-labelledby="editmapel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
@@ -10,16 +10,12 @@
                 <form action="../../../controller/admin/user_control.php?action=edit" method="post">
                     <div class="form_group">
                         <label for="exampleInputtext1" class="form_label">Nama</label>
-                        <input type="text" class="form-control" id="nama" aria-describedby="textHelp" name="nama" placeholder="Nama" required>
+                        <input type="text" class="form-control" id="nama" aria-describedby="textHelp" name="nama_mapel" placeholder="Nama" required>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputtext1" class="form_label">Kode Kelas</label>
-                        <input type="text" class="form-control" id="kode" aria-describedby="textHelp" name="kode" placeholder="Kode Kelas" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="role" class="form_label">Wali Kelas</label>
-                        <select name="wali_kelas" class="form-select" aria-label="Default select example" id="wali" required>
-                            <option value="">Pilih Wali kelas</option>
+                        <label for="role" class="form_label">Wali Mapel</label>
+                        <select name="wali_mapel" class="form-select" aria-label="Default select example" id="wali_mapel" required>
+                            <option value="">Pilih Wali Mapel</option>
                             <?php
                             $guru = get_all_guru();
                             while ($row = mysqli_fetch_assoc($guru)) {

@@ -38,9 +38,9 @@
         <div class="col-lg-12 col-12">
           <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center pb-0">
-              <h6>Daftar Kelas</h6>
+              <h6>Daftar Mapel</h6>
               <!-- Add button -->
-              <a href="" class="btn bg-gradient-success mt-2" data-bs-toggle="modal" data-bs-target="#addkelas"><i class="fas fa-plus"></i> Tambah Kelas</a>
+              <a href="" class="btn bg-gradient-success mt-2" data-bs-toggle="modal" data-bs-target="#addmapel"><i class="fas fa-plus"></i> Tambah Mapel</a>
             </div>
             <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 'success'): ?>
               <!-- show sweet alert success -->
@@ -73,21 +73,20 @@
             ?>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0 m-4">
-                <table class="table align-items-center mb-0" id="tabelkelas">
+                <table class="table align-items-center mb-0" id="tabelmapel">
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nama</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Kode Kelas</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Wali Kelas</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Guru Mengajar</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7">Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php
-                    include '../../../controller/admin/kelas_control.php';
+                    include '../../../controller/admin/mapel_control.php';
                     $no = 1;
-                    $data = get_all_kelas();
+                    $data = get_all_mapel();
                     while ($row = mysqli_fetch_assoc($data)) {
                     ?>
                       <tr>
@@ -95,19 +94,16 @@
                           <p class="text-sm font-weight-bold mb-0"><?= $no++ ?></p>
                         </td>
                         <td>
-                          <p class="text-sm font-weight-bold mb-0"><?= $row['nama_kelas'] ?></p>
-                        </td>
-                        <td>
-                          <p class="text-sm font-weight-bold mb-0"><?= $row['kode_kelas'] ?></p>
+                          <p class="text-sm font-weight-bold mb-0"><?= $row['nama_mapel'] ?></p>
                         </td>
                         <td class="text-sm">
-                          <span class="text-sm font-weight-bold mb-0"><?= $row['wali_kelas'] ?></span>
+                          <span class="text-sm font-weight-bold mb-0"><?= $row['wali_mapel'] ?></span>
                         </td>
                         <td class="align-middle text-center">
-                          <a href="" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#editkelas"  data-id="<?= $row['id'] ?>" data-nama="<?= $row['nama_kelas'] ?>" data-kode="<?= $row['kode_kelas'] ?>" data-wali="<?= $row['wali_kelas'] ?>">
+                          <a href="" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#editmapel"  data-id="<?= $row['id'] ?>" data-nama="<?= $row['nama_mapel'] ?>" data-wali="<?= $row['wali_mapel'] ?>">
                             <i class="fas fa-edit"></i>
                           </a>
-                          <a href="../../../controller/admin/kelas_control.php?id=<?= $row['id'] ?>&action=delete" class="text-secondary font-weight-bold text-xs" onclick="confirmDelete(event, <?= $row['id'] ?>)">
+                          <a href="../../../controller/admin/mapel_control.php?id=<?= $row['id'] ?>&action=delete" class="text-secondary font-weight-bold text-xs" onclick="confirmDelete(event, <?= $row['id'] ?>)">
                             <i class="fas fa-trash"></i>
                           </a>
                         </td>
@@ -140,7 +136,7 @@
   <!-- Sweet alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
-    let table = new DataTable('#tabelkelas');
+    let table = new DataTable('#tabelmapel');
   </script>
   <!--   Core JS Files   -->
   <script src="../../../assets/js/core/popper.min.js"></script>
@@ -155,7 +151,7 @@
   <script src="../../../assets/js/soft-ui-dashboard.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
   <script>
-        const modalEdit = document.getElementById('editkelas'); 
+        const modalEdit = document.getElementById('editmapel'); 
         modalEdit.addEventListener('show.bs.modal', () => {
           const button = event.relatedTarget;
           const id = button.getAttribute('data-id');
