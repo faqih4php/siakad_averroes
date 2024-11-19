@@ -21,9 +21,9 @@
                         <input type="text" class="form-control" id="" aria-describedby="textHelp" name="password" placeholder="password" required>
                     </div>
                     <div class="form-group">
-                        <label for="role" class="form_label">Role</label>
-                        <select name="role" class="form-select" aria-label="Default select example" id="role" required>
-                            <option selected>Pilih Status</option>
+                        <label for="role">Role</label>
+                        <select class="form-control" id="role" name="role" required>
+                            <option value="">Pilih Role</option>
                             <option value="1">Admin</option>
                             <option value="2">Guru</option>
                             <option value="3">User</option>

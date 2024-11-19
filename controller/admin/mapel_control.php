@@ -3,7 +3,7 @@
 function get_all_mapel()
 {
     include '../../../connection/connection.php';
-    $sql = "SELECT mapel.id, mapel.nama as nama_mapel, user.nama as wali_mapel from mapel JOIN user ON mapel.pengajar = user.id";
+    $sql = "SELECT mapel.id, mapel.nama as nama_mapel, user.nama as pengajar, user.id as id_pengajar from mapel JOIN user ON mapel.pengajar = user.id";
     $result = $conn->query($sql);
     return $result;
 }
@@ -19,7 +19,7 @@ function edit_mapel($id)
     session_start();
     $nama = $_POST['nama_mapel'];
     $wali = $_POST['wali_mapel'];
-    $sql = "UPDATE mapel SET nama = '$nama', pengajar = '$wali'";
+    $sql = "UPDATE mapel SET nama = '$nama', pengajar = '$wali' WHERE id = $id";
     
     if($conn->query($sql) === TRUE){
         $_SESSION['status'] = "success";
@@ -32,6 +32,18 @@ function edit_mapel($id)
     }
     
 }
+
+function get_wali_mapel(){
+    include '../../connection/connection.php';
+    $sql = "SELECT * FROM user WHERE role_id = 2";
+    $result = $conn->query($sql);
+    $data = [];
+    while($row = mysqli_fetch_assoc($result)){
+        $data[] = $row;
+    }
+    echo json_encode($data);
+}
+
 function delete_mapel($id){
     include '../../connection/connection.php';
     $sql = "DELETE FROM mapel WHERE id = $id";
@@ -68,5 +80,7 @@ if (isset($_GET['action'])) {
         header('location: ../../pages/admin/mapel/mapel.php');
     } elseif ($action == 'add') {
         insert_mapel();
+    } elseif ($action == 'get_wali_mapel'){
+        get_wali_mapel();
     }
 }

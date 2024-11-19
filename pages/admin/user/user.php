@@ -163,13 +163,15 @@
           const nama = button.getAttribute('data-nama');
           const username = button.getAttribute('data-username');
           const role = button.getAttribute('data-role');
+          
           modalEdit.querySelector('#id').value = id;
           modalEdit.querySelector('#nama').value = nama;
           modalEdit.querySelector('#username').value = username;
           
-          if (role == 'Admin') {
+          if (role == 'admin') {
+            console.log(role);
             modalEdit.querySelector('#role').value = 1;
-          } else if (role == 'Guru') {
+          } else if (role == 'guru') {
             modalEdit.querySelector('#role').value = 2;
           } else {
             modalEdit.querySelector('#role').value = 3;

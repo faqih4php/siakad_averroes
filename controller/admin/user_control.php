@@ -40,11 +40,11 @@
         if ($conn->query($sql) === TRUE) {
             $_SESSION['status'] = "success";
             $_SESSION['msg'] = "Data Berhasil Ditambahkan";
-            echo "<script>location.href = '../../pages/admin/user/index.php';</script>";
+            echo "<script>location.href = '../../pages/admin/user/user.php';</script>";
         } else {
             $_SESSION['status'] = "error";
             $_SESSION['msg'] = "Data Gagal Ditambahkan";
-            echo "<script>location.href = '../../pages/admin/user/index.php';</script>";
+            echo "<script>location.href = '../../pages/admin/user/user.php';</script>";
         }
     }
     function delete_user($id){

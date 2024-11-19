@@ -104,7 +104,7 @@
                           <span class="text-sm font-weight-bold mb-0"><?= $row['wali_kelas'] ?></span>
                         </td>
                         <td class="align-middle text-center">
-                          <a href="" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#editkelas"  data-id="<?= $row['id'] ?>" data-nama="<?= $row['nama_kelas'] ?>" data-kode="<?= $row['kode_kelas'] ?>" data-wali="<?= $row['wali_kelas'] ?>">
+                          <a href="" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#editkelas"  data-id="<?= $row['id'] ?>" data-nama="<?= $row['nama_kelas'] ?>" data-kode="<?= $row['kode_kelas'] ?>" data-wali="<?= $row['id_wali'] ?>">
                             <i class="fas fa-edit"></i>
                           </a>
                           <a href="../../../controller/admin/kelas_control.php?id=<?= $row['id'] ?>&action=delete" class="text-secondary font-weight-bold text-xs" onclick="confirmDelete(event, <?= $row['id'] ?>)">
@@ -133,9 +133,9 @@
             </div>
           </div>
         </footer>
+        <?php include './edit.php'; ?>
+        <?php include './add.php'; ?>
       </main>
-      <?php include './add.php'; ?>
-      <?php include './edit.php'; ?>
   <?php include '../../../layout/sidebar_conf.php' ?>
   <!-- Sweet alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -165,7 +165,23 @@
           modalEdit.querySelector('#id').value = id;
           modalEdit.querySelector('#nama').value = nama;
           modalEdit.querySelector('#kode').value = kode;
-          modalEdit.querySelector('#wali').value = wali;
+
+          $.ajax({
+            url: '../../../controller/admin/kelas_control.php?action=get_wali_kelas',
+            type: 'GET',
+            success: function(data) {
+              let result = JSON.parse(data);
+              let option = '<option value="">Pilih Wali Kelas</option>';
+              result.forEach(element => {
+                if (element.id == wali) {
+                  option += `<option value="${element.id}" selected>${element.nama}</option>`;
+                }else {
+                  option += `<option value="${element.id}">${element.nama}</option>`;
+                }
+              });
+              modalEdit.querySelector('#wali_kelas').innerHTML = option;
+            }
+          });
         });
 
         function confirmDelete(event, id) {
@@ -186,7 +202,7 @@
                         icon: "success"
                     });
                     setTimeout(() => {
-                        window.location.href = '../../../controller/admin/user_control.php?id=' + id + '&action=delete';
+                        window.location.href = '../../../controller/admin/kelas_control.php?id=' + id + '&action=delete';
                     }, 2000); 
                 }
             });

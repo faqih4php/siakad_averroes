@@ -97,10 +97,10 @@
                           <p class="text-sm font-weight-bold mb-0"><?= $row['nama_mapel'] ?></p>
                         </td>
                         <td class="text-sm">
-                          <span class="text-sm font-weight-bold mb-0"><?= $row['wali_mapel'] ?></span>
+                          <span class="text-sm font-weight-bold mb-0"><?= $row['pengajar'] ?></span>
                         </td>
                         <td class="align-middle text-center">
-                          <a href="" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#editmapel"  data-id="<?= $row['id'] ?>" data-nama="<?= $row['nama_mapel'] ?>" data-wali="<?= $row['wali_mapel'] ?>">
+                          <a href="" class="text-secondary font-weight-bold text-xs" data-bs-toggle="modal" data-bs-target="#editmapel"  data-id="<?= $row['id'] ?>" data-nama="<?= $row['nama_mapel'] ?>" data-pengajar="<?= $row['id_pengajar'] ?>">
                             <i class="fas fa-edit"></i>
                           </a>
                           <a href="../../../controller/admin/mapel_control.php?id=<?= $row['id'] ?>&action=delete" class="text-secondary font-weight-bold text-xs" onclick="confirmDelete(event, <?= $row['id'] ?>)">
@@ -129,9 +129,9 @@
             </div>
           </div>
         </footer>
+        <?php include './edit.php'; ?>
+        <?php include './add.php'; ?>
       </main>
-      <?php include './add.php'; ?>
-      <?php include './edit.php'; ?>
   <?php include '../../../layout/sidebar_conf.php' ?>
   <!-- Sweet alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -156,12 +156,26 @@
           const button = event.relatedTarget;
           const id = button.getAttribute('data-id');
           const nama = button.getAttribute('data-nama');
-          const kode = button.getAttribute('data-kode');
-          const wali = button.getAttribute('data-wali');
+          const pengajar = button.getAttribute('data-pengajar');
           modalEdit.querySelector('#id').value = id;
           modalEdit.querySelector('#nama').value = nama;
-          modalEdit.querySelector('#kode').value = kode;
-          modalEdit.querySelector('#wali').value = wali;
+
+          $.ajax({
+            url: '../../../controller/admin/mapel_control.php?action=get_wali_mapel',
+            type: 'GET',
+            success: function(data) {
+              let result = JSON.parse(data);
+              let option = '<option value="">Pilih Wali Mapel</option>';
+              result.forEach(element => {
+                if (element.id == pengajar) {
+                  option += `<option value="${element.id}" selected>${element.nama}</option>`;
+                }else {
+                  option += `<option value="${element.id}">${element.nama}</option>`;
+                }
+              });
+              modalEdit.querySelector('#pengajar').innerHTML = option;
+            }
+          });
         });
 
         function confirmDelete(event, id) {
@@ -182,7 +196,7 @@
                         icon: "success"
                     });
                     setTimeout(() => {
-                        window.location.href = '../../../controller/admin/user_control.php?id=' + id + '&action=delete';
+                        window.location.href = '../../../controller/admin/mapel_control.php?id=' + id + '&action=delete';
                     }, 2000); 
                 }
             });
